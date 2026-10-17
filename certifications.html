@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabbia Noor - Certifications</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            overflow-x: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .back-vid {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            z-index: -2;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            background-color: rgba(0, 0, 20, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 0 30px;
+            box-shadow: 0 0 15px #72a1de68;
+            z-index: 1000;
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+        }
+
+        .left img {
+            width: 40px;
+            margin: 0 15px;
+        }
+
+        .left h2 {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        header ul {
+            display: flex;
+            justify-content: center;
+            padding: 15px 15px;
+            border-radius: 50px;
+            background-color: rgba(0, 0, 69, 0.30);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 10px #72a1de68;
+        }
+
+        header ul li {
+            list-style: none;
+        }
+
+        header ul a {
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        header ul a:hover, .active-link {
+            color: #72a1de;
+        }
+
+        .active-link {
+            position: relative;
+        }
+
+        .active-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #72a1de;
+            box-shadow: 0 0 10px #72a1de;
+        }
+
+        .box_icons {
+            display: flex;
+            gap: 40px;
+        }
+
+        .box_icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #727fde;
+            text-decoration: none;
+            color: lightgray;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .box_icons a:hover {
+            background-color: #727fde;
+            color: black;
+            box-shadow: 0 0 15px #727fde6f;
+        }
+
+        /* Page Header with Animated Gradient Text */
+        .page-header {
+            padding-top: 100px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00b4d8, #0077b6, #4a90e2, #00b4d8, #0077b6);
+            background-size: 300% 300%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlow 3s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Category Filter Section */
+        .categories-section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 30px 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-wrapper {
+            background: rgba(10, 5, 30, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 60px;
+            padding: 8px;
+            border: 1px solid rgba(114, 127, 222, 0.3);
+            display: inline-flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 10px 28px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .category-btn i {
+            margin-right: 8px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
+
+        .category-btn:hover {
+            color: white;
+            background: rgba(114, 127, 222, 0.2);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #72a1de, #4a7db5);
+            color: white;
+            box-shadow: 0 4px 15px rgba(114, 127, 222, 0.4);
+        }
+
+        /* Certifications Grid - Wider Cards */
+        .certs-section {
+            width: 100%;
+            max-width: 1500px;
+            padding: 30px 5% 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        /* Card Design - Shorter Height */
+        .cert-card {
+            position: relative;
+            background: rgba(10, 5, 30, 0.6);
+            backdrop-filter: blur(14px);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(114, 127, 222, 0.25);
+        }
+
+        /* Hide cards when filtered */
+        .cert-card.hidden {
+            display: none;
+        }
+
+        /* Image Banner */
+        .cert-image-banner {
+            width: 100%;
+            height: 170px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cert-image-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .cert-card:hover .cert-image-banner img {
+            transform: scale(1.05);
+        }
+
+        /* Overlay gradient on image */
+        .cert-image-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, rgba(10, 5, 30, 0.8));
+        }
+
+        .cert-content {
+            padding: 18px 20px 22px;
+        }
+
+        .cert-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: white;
+            letter-spacing: -0.2px;
+        }
+
+        .org-name {
+            font-size: 0.7rem;
+            color: #72a1de;
+            font-weight: 500;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            background: rgba(114, 127, 222, 0.15);
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .cert-card p {
+            font-size: 0.78rem;
+            color: rgba(211, 211, 211, 0.75);
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        /* Skill Tags */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .skill-tag {
+            background: rgba(114, 127, 222, 0.12);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            color: #8ba0ff;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .cert-card:hover .skill-tag {
+            background: rgba(114, 127, 222, 0.25);
+        }
+
+        .date-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 16px;
+            font-size: 0.68rem;
+            color: rgba(211, 211, 211, 0.45);
+        }
+
+        .verify-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(114, 127, 222, 0.1);
+            border: 1px solid rgba(114, 127, 222, 0.4);
+            padding: 8px 16px;
+            border-radius: 40px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .verify-link i {
+            font-size: 0.9rem;
+        }
+
+        .verify-link:hover {
+            background: #72a1de;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(114, 127, 222, 0.35);
+            color: #000;
+        }
+
+        /* Hover effect */
+        .cert-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(114, 127, 222, 0.6);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(114, 127, 222, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            width: 100%;
+            background: rgba(0, 0, 10, 0.95);
+            padding: 40px 5% 20px;
+            border-top: 1px solid rgba(114, 127, 222, 0.3);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+
+        .footer-left h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #72a1de;
+        }
+
+        .footer-left p {
+            color: rgba(211, 211, 211, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: lightgray;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: #72a1de;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(114, 127, 222, 0.2);
+        }
+
+        .footer-bottom p {
+            color: rgba(211, 211, 211, 0.6);
+            font-size: 0.8rem;
+        }
+
+        /* Counter Badge */
+        .counter-badge {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: rgba(211, 211, 211, 0.5);
+        }
+
+        @media (max-width: 1200px) {
+            .certs-grid { gap: 30px; }
+        }
+
+        @media (max-width: 1024px) {
+            .certs-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        }
+
+        @media (max-width: 768px) {
+            .certs-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 2.5rem; }
+            header ul { display: none; }
+            .footer-content { flex-direction: column; text-align: center; gap: 25px; }
+            .footer-right { align-items: center; }
+            .category-btn { padding: 6px 16px; font-size: 0.7rem; }
+            .category-wrapper { padding: 6px; gap: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video class="back-vid" loop autoplay muted plays-inline src="videos/galaxy.mp4"></video>
+
+        <!-- Header -->
+        <header>
+            <div class="left">
+                <img src="images/pic.png" alt="logo">
+                <h2>Rabbia Noor</h2>
+            </div>
+            <ul>            
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="certifications.html" class="active-link">Certifications</a></li>
+                
+            </ul>
+            <div class="box_icons">
+                <a href="https://github.com/Rabbia-Noor" target="_blank"><i class='bx bxl-github'></i></a>
+                <a href="https://www.linkedin.com/in/rabbianoor/" target="_blank"><i class='bx bxl-linkedin-square'></i></a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rabbianoor01@gmail.com" target="_blank"><i class='bx bxl-gmail'></i></a>
+            </div>
+        </header>
+
+        <!-- Page Header - Animated Gradient Text -->
+        <div class="page-header">
+            <h1><span class="gradient-text">Certifications</span></h1>
+        </div>
+
+        <!-- Category Filter Section -->
+        <div class="categories-section">
+            <div class="category-wrapper">
+                <button class="category-btn active" data-filter="all">
+                    <i class='bx bx-grid-alt'></i> All
+                </button>
+                <button class="category-btn" data-filter="ai-ml">
+                    <i class='bx bx-brain'></i> AI & Machine Learning
+                </button>
+                <button class="category-btn" data-filter="data-science">
+                    <i class='bx bx-data'></i> Data Science
+                </button>
+                <button class="category-btn" data-filter="genai">
+                    <i class='bx bx-bot'></i> Generative AI
+                </button>
+            </div>
+        </div>
+
+        <!-- Certifications Grid -->
+        <div class="certs-section">
+            <div class="certs-grid">
+                
+                <!-- Card 1: Machine Learning Specialization - DeepLearning.AI (ai-ml) -->
+                <div class="cert-card" data-category="ai-ml">
+                    <div class="cert-image-banner">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9P3CYQ_WztTmxuKp0pkVH74ijk5OxCbMpxg&s" alt="DeepLearning.AI" onerror="this.src='https://placehold.co/400x160/1a1a2e/72a1de?text=DeepLearning.AI'">
+                    </div>
+                    <div class="cert-content">
+                        <h3>Machine Learning Specialization</h3>
+                        <div class="org-name">DeepLearning.AI</div>
+                        <p>Supervised learning, unsupervised learning, recommendation systems, and reinforcement learning fundamentals taught by Andrew Ng.</p>
+                        <div class="skills-container">
+                            <span class="skill-tag">Supervised Learning</span>
+                            <span class="skill-tag">Neural Networks</span>
+                            <span class="skill-tag">Recommendation Systems</span>
+                        </div>
+                        <div class="date-badge">
+                            <i class='bx bx-calendar'></i> December 2025
+                        </div>
+                        <a href="https://www.coursera.org/account/accomplishments/specialization/3FITPPAPYDP0" class="verify-link" target="_blank">
+                            <i class='bx bx-link-external'></i> Verify Credential
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Python for Data Science - Coursera (data-science, ai-ml) -->
+                <div class="cert-card" data-category="data-science ai-ml">
+                    <div class="cert-image-banner">
+                        <img src="https://images.credly.com/images/27654fce-fa93-4b09-87a0-e41a7557aed6/blob.png" alt="Coursera" onerror="this.src='https://placehold.co/400x160/1a1a2e/72a1de?text=Coursera'">
+                    </div>
+                    <div class="cert-content">
+                        <h3>Python for Data Science, AI & Development</h3>
+                        <div class="org-name">Coursera</div>
+                        <p>Data structures, APIs, web scraping, Pandas, and NumPy for data analysis and visualization.</p>
+                        <div class="skills-container">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Data Analysis</span>
+                            <span class="skill-tag">Pandas/NumPy</span>
+                            <span class="skill-tag">APIs</span>
+                        </div>
+                        <div class="date-badge">
+                            <i class='bx bx-calendar'></i> August 2025
+                        </div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/94CQ3M05ZWHG" class="verify-link" target="_blank">
+                            <i class='bx bx-link-external'></i> Verify Credential
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Generative AI: Prompt Engineering Basics - Coursera (genai) -->
+                <div class="cert-card" data-category="genai ai-ml">
+                    <div class="cert-image-banner">
+                        <img src="https://images.credly.com/images/27654fce-fa93-4b09-87a0-e41a7557aed6/blob.png" alt="Coursera" onerror="this.src='https://placehold.co/400x160/1a1a2e/72a1de?text=Coursera'">
+                    </div>
+                    <div class="cert-content">
+                        <h3>Generative AI: Prompt Engineering Basics</h3>
+                        <div class="org-name">Coursera</div>
+                        <p>Prompt engineering techniques for LLMs including zero-shot, few-shot prompting, and chain-of-thought reasoning.</p>
+                        <div class="skills-container">
+                            <span class="skill-tag">Prompt Engineering</span>
+                            <span class="skill-tag">Generative AI</span>
+                            <span class="skill-tag">LLMs</span>
+                            <span class="skill-tag">AI Ethics</span>
+                        </div>
+                        <div class="date-badge">
+                            <i class='bx bx-calendar'></i> July 2025
+                        </div>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/M2S0NVJYAAKN" class="verify-link" target="_blank">
+                            <i class='bx bx-link-external'></i> Verify Credential
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h3>Rabbia Noor</h3>
+                    <p>AI/ML Enthusiast & Creative Problem Solver</p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="index.html#about">About</a>
+                        <a href="projects.html">Projects</a>
+                        <a href="certifications.html">Certifications</a>
+                        <a href="index.html#contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; Rabbia Noor. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Category Filtering Functionality
+        const filterButtons = document.querySelectorAll('.category-btn');
+        const certCards = document.querySelectorAll('.cert-card');
+        const counterBadge = document.getElementById('counterBadge');
+
+        function filterCertificates(filterValue) {
+            let visibleCount = 0;
+            
+            certCards.forEach(card => {
+                const cardCategories = card.getAttribute('data-category').split(' ');
+                
+                if (filterValue === 'all' || cardCategories.includes(filterValue)) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            // Update counter
+            if (visibleCount === 1) {
+                counterBadge.textContent = `Showing ${visibleCount} certification`;
+            } else {
+                counterBadge.textContent = `Showing ${visibleCount} certifications`;
+            }
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                // Get filter value
+                const filterValue = btn.getAttribute('data-filter');
+                // Apply filter
+                filterCertificates(filterValue);
+            });
+        });
+    </script>
+</body>
+</html>

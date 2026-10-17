@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabbia Noor - Projects Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        /* Additional styles for projects page - keeping original navbar styling intact */
+        .page-header {
+            padding-top: 120px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .page-header p {
+            color: rgba(211, 211, 211, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 50px auto 40px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .filter-btn {
+            padding: 12px 28px;
+            border: 1px solid rgba(114, 127, 222, 0.5);
+            background: rgba(8, 0, 32, 0.6);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .filter-btn:hover {
+            border-color: #727fde;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #727fde, #4a3a8a);
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(114, 127, 222, 0.5);
+        }
+
+        /* Projects Grid */
+        .projects-grid-section {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 5% 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .project-card {
+            background: rgba(8, 0, 32, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(114, 127, 222, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .project-card.hide {
+            display: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(114, 127, 222, 0.4);
+            border-color: #727fde;
+        }
+
+        .project-imgbox {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-imgbox img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .project-card:hover .project-imgbox img {
+            transform: scale(1.05);
+        }
+
+        .project-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #727fde;
+            border: 1px solid #727fde;
+            z-index: 2;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-category {
+            display: inline-block;
+            font-size: 0.7rem;
+            color: #727fde;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .project-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .project-info p {
+            font-size: 0.85rem;
+            color: rgba(211, 211, 211, 0.7);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            background: rgba(114, 127, 222, 0.2);
+            border-radius: 20px;
+            color: #a0b0ff;
+        }
+
+        /* Unique and good looking button style - View Project buttons */
+        .project-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .view-project-btn {
+            background: linear-gradient(135deg, rgba(114, 127, 222, 0.2), rgba(74, 58, 138, 0.3));
+            border: 1.5px solid #727fde;
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
+            text-decoration: none;
+        }
+
+        .view-project-btn a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .view-project-btn:hover {
+            background: linear-gradient(135deg, #727fde, #4a3a8a);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(114, 127, 222, 0.4);
+        }
+
+        .in-progress {
+            background: rgba(255, 165, 0, 0.2);
+            border-color: #ffa500;
+            cursor: default;
+        }
+
+        .in-progress:hover {
+            transform: none;
+            background: rgba(255, 165, 0, 0.2);
+            box-shadow: none;
+        }
+
+        .in-progress span {
+            color: #ffa500;
+        }
+
+        /* Footer styles - matching original */
+        .footer {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 40px 5% 20px;
+            border-top: 1px solid rgba(114, 127, 222, 0.3);
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .footer-left h3 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #fff, #b7c1ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .footer-left p {
+            color: rgba(211, 211, 211, 0.7);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(211, 211, 211, 0.8);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #727fde;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(114, 127, 222, 0.2);
+            color: rgba(211, 211, 211, 0.5);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .filter-tabs { gap: 10px; }
+            .filter-btn { padding: 8px 18px; font-size: 0.8rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .page-header h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video class="back-vid" loop autoplay muted plays-inline src="videos/galaxy.mp4"></video>
+
+        <!-- Header - ORIGINAL STYLING PRESERVED, only Contact link removed -->
+        <header>
+            <div class="left">
+                <img src="images/pic.png" alt="logo">
+                <h2>Rabbia Noor</h2>
+            </div>
+            <ul>            
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="projects.html" class="active-link">Projects</a></li>
+                <li><a href="certifications.html">Certifications</a></li>
+                <!-- Contact link removed as requested -->
+            </ul>
+            <div class="box_icons">
+                <a href="https://github.com/Rabbia-Noor" target="_blank"><i class='bx bxl-github'></i></a>
+                <a href="https://www.linkedin.com/in/rabbianoor/" target="_blank"><i class='bx bxl-linkedin-square'></i></a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=rabbianoor01@gmail.com" target="_blank"><i class='bx bxl-gmail'></i></a>
+            </div>
+        </header>
+
+        <!-- Page Header - Stats bar removed as requested -->
+        <div class="page-header">
+            <h1>My <span class="gradient">Projects</span></h1>
+            <p>Exploring innovative solutions — from AI models to full-stack applications, mobile apps, and robotics.</p>
+        </div>
+
+        <!-- Dynamic Filter Tabs -->
+        <div class="filter-tabs" id="filterTabs">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="web">Web Apps</button>
+            <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+            <button class="filter-btn" data-filter="ai">AI/ML</button>
+            <button class="filter-btn" data-filter="robotics">Robotics</button>
+        </div>
+
+        <!-- Projects Grid - Cards centered, all Live Demo buttons removed, View Project removed from robotics card -->
+        <div class="projects-grid-section">
+            <div class="projects-grid" id="projectsGrid">
+                
+
+               
+
+                <!-- University Society Election App - React Native (APK button removed) -->
+                <div class="project-card" data-category="mobile">
+                    <div class="project-imgbox">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop" alt="React Native App">
+                        <div class="project-badge">Mobile App</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">📱 Cross-Platform</span>
+                        <h3>Election App (React Native + Firebase)</h3>
+                        <p>Mobile version of the election system with push notifications, biometric auth, and real-time voting charts. Available for both iOS and Android.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React Native</span>
+                            <span class="tech-tag">Firebase Auth</span>
+                            <span class="tech-tag">Firestore</span>
+                            <span class="tech-tag">Expo</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn"><a href="https://github.com/Rabbia-Noor/UniSocietyElectionSystem" target="_blank"><i class="bx bx-code-alt"></i> View Project</a></button>
+                            <!-- APK button and Live Demo button removed -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Obstacle Avoiding Robot In Progress - View Project button removed (only In Development button remains) -->
+                <div class="project-card" data-category="robotics">
+                    <div class="project-imgbox">
+                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop" alt="Obstacle Robot">
+                        <div class="project-badge">Hardware + IoT</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">🤖 Robotics (In Progress)</span>
+                        <h3>Obstacle Avoiding Robot <span class="gradient">[60% complete]</span></h3>
+                        <p>Autonomous robot using Arduino Uno, ultrasonic sensors, and motor drivers to navigate and avoid obstacles in real-time. Currently integrating Bluetooth control.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Arduino</span>
+                            <span class="tech-tag">C++</span>
+                            <span class="tech-tag">Ultrasonic Sensor</span>
+                            <span class="tech-tag">Servo Motor</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn in-progress"><span><i class="bx bx-loader-alt"></i> In Development</span></button>
+                            <!-- View Project button removed from robotics card as requested -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume Builder -->
+                <div class="project-card" data-category="web">
+                    <div class="project-imgbox">
+                        <img src="images/resume_project.jpg" alt="resume builder" onerror="this.src='https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&h=400&fit=crop'">
+                        <div class="project-badge">Web App</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">📄 Developer Tool</span>
+                        <h3>Resume <span class="gradient">Builder</span></h3>
+                        <p>Web app with PHP and CSS that lets users create and download professional resumes.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn"><a href="https://github.com/Rabbia-Noor/ResumeBuilderProject.git" target="_blank"><i class="bx bx-code-alt"></i> View Project</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GUI Banking System -->
+                <div class="project-card" data-category="web">
+                    <div class="project-imgbox">
+                        <img src="images/Digital-Banking.jpg" alt="banking system" onerror="this.src='https://images.unsplash.com/photo-1556742031-c6961e8560b0?w=600&h=400&fit=crop'">
+                        <div class="project-badge">Desktop App</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">💰 Finance</span>
+                        <h3>Banking <span class="gradient">System</span> (Java GUI)</h3>
+                        <p>Desktop banking app with account creation, deposit/withdraw features.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Swing</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn"><a href="https://github.com/Rabbia-Noor/-GUI-Banking-System.git" target="_blank"><i class="bx bx-code-alt"></i> View Project</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Management System -->
+                <div class="project-card" data-category="web">
+                    <div class="project-imgbox">
+                        <img src="images/login.jpg" alt="management system" onerror="this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop'">
+                        <div class="project-badge">Full-Stack</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">🎓 Education</span>
+                        <h3>Student Management System</h3>
+                        <p>Blazor Server + ASP.NET Core Web API with JWT auth and CRUD operations.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">C#</span>
+                            <span class="tech-tag">.NET</span>
+                            <span class="tech-tag">Blazor</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn"><a href="https://github.com/Rabbia-Noor/Student_Management_System" target="_blank"><i class="bx bx-code-alt"></i> View Project</a></button>
+                        </div>
+                    </div>
+                </div>
+                  <!-- University Society Election App - Web -->
+                <div class="project-card" data-category="web">
+                    <div class="project-imgbox">
+                        <img src="images/election.jpg" alt="Election Web App" onerror="this.src='https://images.unsplash.com/photo-1556742393-d75f468bfcb0?w=600&h=400&fit=crop'">
+                        <div class="project-badge">Full-Stack Web</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">🗳️ Web Application</span>
+                        <h3>University Society Election Website </h3>
+                        <p>Secure online voting platform for university societies with real-time result tracking, candidate profiles, and admin dashboard. Built with HTML, CSS, JS, and Firebase.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Firebase</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn"><a href="https://github.com/Rabbia-Noor/UniSocietyElectionSystem" target="_blank"><i class="bx bx-code-alt"></i> View Project</a></button>
+                            <!-- Live Demo button removed -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Telephone Directory -->
+                <div class="project-card" data-category="web">
+                    <div class="project-imgbox">
+                        <img src="https://images.pond5.com/phone-directory-computer-list-listing-footage-011367014_iconl.jpeg" alt="telephone directory">
+                        <div class="project-badge">Console App</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">📞 Contact Management</span>
+                        <h3>Telephone <span class="gradient">Directory</span></h3>
+                        <p>C++ console-based app to add, search, edit, and delete contacts with file handling.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">C++</span>
+                            <span class="tech-tag">File I/O</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn"><a href="https://github.com/Rabbia-Noor/TelephoneDirectoryProject" target="_blank"><i class="bx bx-code-alt"></i> View Project</a></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 Puzzle Game -->
+                <div class="project-card" data-category="ai">
+                    <div class="project-imgbox">
+                        <img src="images/Output puzzle.png" alt="8 puzzle game" onerror="this.src='https://images.unsplash.com/photo-1510519138101-570d1dca3d66?w=600&h=400&fit=crop'">
+                        <div class="project-badge">AI Algorithm</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">🧩 Problem Solving</span>
+                        <h3>8 <span class="gradient">Puzzle </span>Game</h3>
+                        <p>Python AI project solving sliding puzzle using A* algorithm and Manhattan heuristic.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">A* Algorithm</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn"><a href="https://github.com/Rabbia-Noor/8-Puzzle-Game" target="_blank"><i class="bx bx-code-alt"></i> View Project</a></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Azure VM Failure Prediction Model -->
+                <div class="project-card" data-category="ai">
+                    <div class="project-imgbox">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Azure ML">
+                        <div class="project-badge">AI/ML</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">🤖 Machine Learning</span>
+                        <h3>Azure VM Failure Prediction Model</h3>
+                        <p>Predictive model using Azure Machine Learning and historical telemetry data to forecast VM failures before they occur, reducing downtime by 35%.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Azure ML</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                            <span class="tech-tag">Time Series</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn"><a href="https://github.com/Rabbia-Noor/Azure_Vm_failure_prediction_model" target="_blank"><i class="bx bx-code-alt"></i> View Project</a></button>
+                            <!-- Live Demo button removed -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Console Banking System -->
+                <div class="project-card" data-category="web">
+                    <div class="project-imgbox">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT38kIEl13vyeNgLX9N_6YvbBsbiNuPJnFIqw&s" alt="console banking">
+                        <div class="project-badge">C Program</div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">🏦 Banking</span>
+                        <h3>Console <span class="gradient">Banking </span>System</h3>
+                        <p>C-based program for managing bank accounts with login, deposit, and withdrawal features.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">C</span>
+                            <span class="tech-tag">File Handling</span>
+                        </div>
+                        <div class="project-links">
+                            <button class="view-project-btn"><a href="https://github.com/Rabbia-Noor/Console-Banking-System" target="_blank"><i class="bx bx-code-alt"></i> View Project</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <h3>Rabbia Noor</h3>
+                   <p>AI/ML Enthusiast & Creative Problem Solver</p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="index.html#about">About</a>
+                        <a href="projects.html">Projects</a>
+                        <a href="certifications.html">Certifications</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; Rabbia Noor. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Dynamic filtering for projects
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        function filterProjects(category) {
+            projectCards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hide');
+                } else {
+                    card.classList.add('hide');
+                }
+            });
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filterValue = btn.getAttribute('data-filter');
+                filterProjects(filterValue);
+            });
+        });
+
+        // Active link highlighting
+        document.querySelectorAll('header ul a').forEach(link => {
+            if (link.getAttribute('href') === 'projects.html') {
+                link.classList.add('active-link');
+            }
+        });
+    </script>
+</body>
+</html>
